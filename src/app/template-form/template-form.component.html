@@ -1,0 +1,56 @@
+<div class="container-fluid col-6 mt-4">
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+
+        <div class="form-group mt-3">
+            <label>Full name:</label>
+            <input type="text" class="form-control" #fullname="ngModel" [(ngModel)]="myForm.fullname" name="fullname"
+                required [class.is-invalid]="fullname.invalid && fullname.touched">
+
+            <small class="text-danger" [class.d-none]="fullname.valid || fullname.untouched">Full Name is required and
+                must be a valid name</small>
+        </div>
+        <div class="form-group mt-3">
+            <label>Email:</label>
+            <input type="email" class="form-control" #email="ngModel" [(ngModel)]="myForm.email" name="email" required
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+                [class.is-invalid]="email.invalid && email.touched">
+
+            <small class="text-danger" [class.d-none]="email.valid || email.untouched">Enter a valid email address, e.g.
+                john@example.com</small>
+        </div>
+        <div class="form-group mt-3">
+            <label>Phone No.</label>
+            <input type="text" class="form-control" #phone="ngModel" [(ngModel)]="myForm.phone" name="phone" required
+                minlength="10" maxlength="12" [class.is-invalid]="phone.invalid && phone.touched">
+
+            <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">
+                Phone number must be minimum 10 digits and maximum 12 digit in length.
+            </small>
+        </div>
+        <div class="form-group mt-3">
+            <label>Password:</label>
+            <input type="password" class="form-control" #password="ngModel" [(ngModel)]="myForm.password"
+                name="password" required minlength="6" [class.is-invalid]="password.invalid && password.touched">
+
+            <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password must be at least 6
+                characters</small>
+        </div>
+        <div class="form-group mt-3">
+            <label>Confirm Password:</label>
+            <input type="password" class="form-control" #confirmPassword="ngModel" [(ngModel)]="myForm.confirmPassword"
+                name="confirmPassword" required minlength="6" (change)="checkMatchPassword()"
+                [class.is-invalid]="!passwordMatch && confirmPassword.touched">
+
+            <small class="text-danger" *ngIf="!passwordMatch && confirmPassword.touched">Password does not match</small>
+        </div>
+
+        <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" value="agree" id="flexCheckDefault" #agree="ngModel"
+                [(ngModel)]="myForm.agree" name="agree" required>
+            <label class="form-check-label" for="flexCheckDefault">
+                Agree with terms and conditions
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Sign Up</button>
+    </form>
+</div>
